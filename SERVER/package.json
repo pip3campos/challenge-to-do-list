@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./dist/www.js",
+    "build": "tsc",
+    "dev": "ts-node src/www.ts",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.7",
+    "debug": "~4.4.0",
+    "express": "~4.21.2",
+    "morgan": "~1.10.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/debug": "^4.1.12",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.22.0"
+  }
+}
