@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/notes', indexRouter);
 app.use('/users', usersRouter);
+app.get('/favicon.ico', (req: Request, res: Response) => {res.status(204).end();});
 
 app.use((req, res, next) => {
     next(createHttpError(404, "Endpoint not found"));
