@@ -1,3 +1,4 @@
+this is the tsconfig.json file:
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
@@ -26,7 +27,7 @@
 
     /* Modules */
     "module": "commonjs",                                /* Specify what module code is generated. */
-    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
+    // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     // "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
@@ -106,14 +107,214 @@
 
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
-    "typeRoots": ["./src/types"]
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  }
+}
+this is the package.json file:
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./dist/www.js",
+    "build": "tsc",
+    "dev": "ts-node src/www.ts",
+    "lint": "eslint ."
   },
-  // "include": [
-  //  "src/**/*",
-  //  "src/types/**/*.ts"
-  // ],
-  // "exclude": [
-  //   "node_modules"
-  // ]
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "~1.4.7",
+    "cors": "^2.8.5",
+    "debug": "~4.4.0",
+    "dotenv": "^16.4.7",
+    "express": "~4.21.2",
+    "http-errors": "^2.0.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.6",
+    "morgan": "~1.10.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/debug": "^4.1.12",
+    "@types/express": "^5.0.0",
+    "@types/http-errors": "^2.0.4",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/morgan": "^1.9.9",
+    "@types/passport": "^1.0.17",
+    "@types/passport-jwt": "^4.0.1",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.22.0"
+  }
+}
+
+this is the www.ts file in the src directory:
+#!/usr/bin/env node
+import "dotenv/config";
+import app from './app';
+import debug from 'debug';
+import http from 'http';
+import { NODE_ENV, PORT } from './constants/env';
+
+const log = debug('server:server');
+
+const port = normalizePort(String(PORT || '3000'));
+app.set('port', port);
+
+const server = http.createServer(app);
+server.listen(port, () => console.log("server listening on port " + port + " in " + NODE_ENV + " environment."));
+server.on('error', onError);
+server.on('listening', onListening);
+
+
+function normalizePort(val: string): number | string | boolean {
+  const port = parseInt(val, 10);
+  
+  if (isNaN(port)) {
+    return val; // named pipe
+  }
+
+  return port >= 0 ? port : false; // port number or false
+}
+
+function onError(error: NodeJS.ErrnoException): void {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+
+  switch (error.code) {
+    case 'EACCES':
+      console.error(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+function onListening(): void {
+  const addr = server.address();
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + (addr ? addr.port: 'unknown');
+  log('Listening on ' + bind);
+}
+
+this is the app.ts file in the src directory:
+import './config/database'
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+
+import indexRouter from './routes/index';
+
+import ErrorHandler from './middlewares/error_handler';
+import Not_Found from './middlewares/not_found';
+
+const app = express();
+app.use(cors())
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/api', indexRouter);
+app.use(Not_Found)
+app.use(ErrorHandler)
+
+export default app;
+
+this is the index.ts file in the src/routes directory:
+import { Router } from 'express';
+import userRouter from './users'
+import taskRouter from './tasks'
+
+const router = Router();
+
+router.use('/auth', userRouter);
+router.use('/tasks', taskRouter);
+
+export default router;
+
+this is the user.ts file in the src/routes directory:
+import { Router } from 'express';
+import signUp from '../controllers/auth/signUp';
+import signIn from '../controllers/auth/signIn';
+import signOut from '../controllers/auth/signout'
+import findUserForRegister from '../middlewares/findUserForRegister';
+import findUserForSignIn from '../middlewares/findUserForSignIn';
+import validator from '../middlewares/validator';
+import userRegisterValidator from '../validators/userRegisterValidator';
+import userSignInValidator from '../validators/userSignInValidator';
+import hashPassword from '../middlewares/hashPassword';
+import checkPassword from '../middlewares/checkPassword';
+import generateToken from '../middlewares/generateToken';
+import passport from "../middlewares/passport";
+
+const router = Router();
+
+router.post('/signup', findUserForRegister, validator(userRegisterValidator), hashPassword, signUp)
+router.patch('/signin', validator(userSignInValidator), findUserForSignIn, checkPassword, generateToken, signIn);
+router.patch("/signout", passport.authenticate('jwt', { session: false }), signOut);
+
+export default router;
+
+this is the signIn controller, signIn.ts file in the src/middlewares directory:
+import { RequestHandler } from 'express';
+import User from '../../models/User'
+
+const signIn: RequestHandler = async (req, res, next) => {
+  try {
+    const findUser = await User.findOneAndUpdate(
+      {email: req.body.email},
+      {online: true},
+      {new: true}).select("-password");
+      console.log(findUser);
+      if (!findUser) {
+        res.status(404).json({
+          success: false,
+          message: "User not found"
+        });
+        return;
+      }
+
+    res.status(200).json({
+      response: { 
+        token: req.token,
+        findUser
+      }
+    });
+    return;
+    
+  } catch (error) {
+    console.error("Error during sign-in:", error);
+    return next(error)
+  }
+}
+
+export default signIn;
+this is the express.d.ts file in the src/types directory:
+import 'express';
+
+declare global {
+  namespace Express {
+    interface Request {
+      token?: string;
+    }
+  }
 }

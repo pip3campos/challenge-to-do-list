@@ -1,14 +1,10 @@
-import express from 'express';
-import * as NotesController from '../controllers/notes'
+import { Router } from 'express';
+import userRouter from './users'
+import taskRouter from './tasks'
 
+const router = Router();
 
-const router = express.Router();
-
-/* GET home page. */
-router.get('/', NotesController.getNotes);
-router.get('/:noteId', NotesController.getNote);
-router.post('/', NotesController.createNote);
-router.patch('/:noteId', NotesController.updateNote);
-router.delete('/:noteId', NotesController.deleteNote);
+router.use('/auth', userRouter);
+router.use('/tasks', taskRouter);
 
 export default router;

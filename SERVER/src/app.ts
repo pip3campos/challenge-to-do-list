@@ -6,7 +6,6 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
 import indexRouter from './routes/index';
-import usersRouter from './routes/users';
 
 import ErrorHandler from './middlewares/error_handler';
 import Not_Found from './middlewares/not_found';
@@ -19,8 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/notes', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api', indexRouter);
 app.use(Not_Found)
 app.use(ErrorHandler)
 
