@@ -1,7 +1,8 @@
-import { ErrorRequestHandler } from "express";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Not_Found: ErrorRequestHandler = ( error, req, res, next ) => {
-    console.error(`PATH: ${req.path}`, error);
-    res.status(404).send('Ruta no encontrada')
-}
-export default Not_Found
+import { Request, Response } from "express";
+
+const Not_Found = (req: Request, res: Response) => {
+    console.error(`404 Not Found: ${req.path}`);
+    res.status(404).json({ error: 'Route not found' });
+};
+
+export default Not_Found;
