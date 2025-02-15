@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import "dotenv/config";
 import app from './app';
-import debug from 'debug';
+import logger from 'debug';
 import http from 'http';
 import { NODE_ENV, PORT } from './constants/env';
 
-const log = debug('server:server');
+const debug = logger('server:server');
 
 const port = normalizePort(String(PORT || '3000'));
 app.set('port', port);
@@ -50,5 +50,5 @@ function onError(error: NodeJS.ErrnoException): void {
 function onListening(): void {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + (addr ? addr.port: 'unknown');
-  log('Listening on ' + bind);
+  debug('Listening on ' + bind);
 }
