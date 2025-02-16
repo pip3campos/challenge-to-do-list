@@ -5,7 +5,7 @@ import { ITask } from "../types/tasks"
 import { IUser } from "../types/users"
 import { cookies } from 'next/headers'
 
-const baseUrl = 'http://localhost:8080';
+const baseUrl = process.env.URL_BASE;
 
 export const signUp = async (userInfo: { email: string, password: string }): Promise<IUser> => {
     try {
