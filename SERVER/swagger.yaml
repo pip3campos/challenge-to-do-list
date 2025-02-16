@@ -1,0 +1,156 @@
+openapi: 3.0.0
+info:
+  title: To Do List
+  description: |-
+    Welcome to the To-Do List API, designed to manage tasks and authenticate users within a specific front-end application. With this API, you can create, edit, delete, and view tasks, as well as sign up, sign in, and sign out users.
+
+    The API utilizes bearer authentication to ensure secure access to user-specific data, and is tailored to work seamlessly with its dedicated front-end. It is intended for use in conjunction with the front-end application and is not intended for external integrations.
+  version: 1.0.0
+servers:
+  - url: http://{{url_base}}
+  - url: http://localhost:8080
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Tasks
+  - name: Authentication
+paths:
+  /api/tasks/{author_id}:
+    get:
+      tags:
+        - Tasks
+      summary: getTasks
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: author_id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: '{{AUTHOR_ID}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/tasks/{noteId}:
+    patch:
+      tags:
+        - Tasks
+      summary: editTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: cambio de titulo
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: noteId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: '{{NOTE_ID}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Tasks
+      summary: deleteTask
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: noteId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: '{{NOTE_ID}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/tasks:
+    post:
+      tags:
+        - Tasks
+      summary: createTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: My first endpoint note
+                text: This is fun
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/auth/signup:
+    post:
+      tags:
+        - Authentication
+      summary: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: hola6@gmail.com
+                password: hola1234
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/auth/signin:
+    patch:
+      tags:
+        - Authentication
+      summary: signInUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: hola@gmail.com
+                password: hola1234
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/auth/signout:
+    patch:
+      tags:
+        - Authentication
+      summary: signOutUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: hola2@gmail.com
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
