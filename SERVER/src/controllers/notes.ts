@@ -25,6 +25,9 @@ export const createNote: RequestHandler<unknown, unknown, CreateNoteBody, unknow
       if (!title) {
         throw createHttpError(400, "Note must have a title")
       }
+      if (!author_id) {
+        throw createHttpError(400, "Note must have a author id")
+      }
         const newNote = await NoteModel.create({
             title,
             text,

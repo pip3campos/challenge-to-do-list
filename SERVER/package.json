@@ -6,7 +6,8 @@
     "start": "node ./dist/www.js",
     "build": "tsc",
     "dev": "ts-node src/www.ts",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "jest --detectOpenHandles"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -31,12 +32,17 @@
     "@types/debug": "^4.1.12",
     "@types/express": "^5.0.0",
     "@types/http-errors": "^2.0.4",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/morgan": "^1.9.9",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
+    "@types/supertest": "^6.0.2",
     "eslint": "^9.19.0",
     "globals": "^15.14.0",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.22.0"

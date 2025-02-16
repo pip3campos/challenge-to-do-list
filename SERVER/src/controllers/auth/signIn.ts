@@ -16,10 +16,12 @@ const signIn: RequestHandler = async (req, res, next) => {
       }
 
     res.status(200).json({
+      message: "User sign in successfull",
       response: { 
         token: req.token,
         findUser
-      }
+      },
+      success: true
     });
     return;
     

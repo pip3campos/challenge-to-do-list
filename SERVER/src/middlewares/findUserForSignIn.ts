@@ -5,6 +5,7 @@ const findUserForSignIn: RequestHandler = async (req, res, next) => {
   try {
     const userFind = await User.findOne({ email: req.body.email })
     if (!userFind) {
+      res.status(404)
       res.json({
         success: false,
         message: "User not found."

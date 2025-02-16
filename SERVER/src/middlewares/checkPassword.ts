@@ -18,9 +18,9 @@ const checkPassword: RequestHandler = async (req, res, next) => {
     if (bcrypt.compareSync(req.body.password, userFind.password)) {
       return next();
     } else {
-      res.status(400).json({
+      res.status(401).json({
         success: false,
-        message: "Wrong password",
+        message: "Invalid credentials",
         response: null
       });
       return;

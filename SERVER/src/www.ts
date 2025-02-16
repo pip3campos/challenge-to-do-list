@@ -11,7 +11,7 @@ const port = normalizePort(String(PORT || '3000'));
 app.set('port', port);
 
 const server = http.createServer(app);
-server.listen(port, () => console.log("server listening on port " + port + " in " + NODE_ENV + " environment."));
+server.listen(port, () => console.log(`server listening on ${PORT} port in ${NODE_ENV} environment.`));
 server.on('error', onError);
 server.on('listening', onListening);
 
