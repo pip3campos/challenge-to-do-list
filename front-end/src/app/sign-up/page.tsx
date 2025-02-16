@@ -9,6 +9,9 @@ export default function SignUp() {
 
   const handleSubmitNewUser: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    if (emailValue.trim() === "" || passwordValue.trim() === "") {
+      return;
+    }
     await signUp({
       email: emailValue,
       password: passwordValue

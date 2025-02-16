@@ -10,6 +10,9 @@ const AddForm = () => {
 
     const handleSubmitNewTask: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
+        if (newTaskValue.trim() === "") {
+            return;
+        }
         await addTask({
             title: newTaskValue
         })

@@ -2,6 +2,7 @@ import { FormEventHandler, useState } from 'react'
 import { ITask } from '../types/tasks'
 import { useRouter } from 'next/navigation'
 import { editTask } from '../app/api'
+import EditForm from './EditForm'
 
 interface TaskProps {
     task: ITask,
@@ -24,9 +25,7 @@ const TaskTitle: React.FC<TaskProps> = ({ task, openInputEdit, setOpenInputEdit 
   return (
     <>
     {openInputEdit ? 
-        (<form onSubmit={handleSubmitEditTask} className='w-full' >
-            <input value={editTaskValue} onChange={e => setEditTaskValue(e.target.value)} type="text" placeholder={task.title} className="w-full flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
-        </form>) : 
+        (<EditForm task={task} handleSubmitEditTask={handleSubmitEditTask} setOpenInputEdit={setOpenInputEdit} editTaskValue={editTaskValue} setEditTaskValue={setEditTaskValue} />) : 
         (<div className="flex min-w-0 gap-x-4">
             <div className="min-w-0 flex-auto">
                 <p className="text-sm/6 font-semibold text-gray-900">{task.title}</p>

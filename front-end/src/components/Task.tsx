@@ -5,6 +5,7 @@ import { ITask } from '../types/tasks'
 import DeleteButton from './DeleteButton'
 import EditButton from './EditButton'
 import TaskTitle from './TaskTitle'
+import DeleteConfirmation from './DeleteConfirmation'
 import { deleteTask } from '../app/api'
 import { useRouter } from 'next/navigation'
 
@@ -31,11 +32,11 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     
     return (
         <li key={task._id} className="flex justify-between gap-x-6 py-5">
-            {(openInputDelete) ? (<button onClick={handleDeleteTask}>Confirm delete?</button>) :
+            {(openInputDelete) ? (<DeleteConfirmation handleDeleteTask={handleDeleteTask} setOpenInputDelete={setOpenInputDelete} />) :
             (<TaskTitle task={task} openInputEdit={openInputEdit} setOpenInputEdit={setOpenInputEdit} />)}
             <div className="hidden shrink-0 sm:flex sm:items-end">
                 <EditButton openInputEdit={openInputEdit} setOpenInputEdit={setOpenInputEdit} />
-                <DeleteButton id={task._id} openInputDelete={openInputDelete} setOpenInputDelete={setOpenInputDelete} />
+                <DeleteButton openInputDelete={openInputDelete} setOpenInputDelete={setOpenInputDelete} />
             </div>
         </li>
     )

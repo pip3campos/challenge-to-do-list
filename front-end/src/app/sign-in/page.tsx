@@ -11,6 +11,9 @@ export default function SignIn() {
 
   const handleSubmitUser: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    if (emailValue.trim() === "" || passwordValue.trim() === "") {
+      return;
+    }
     const user = await signIn({
       email: emailValue,
       password: passwordValue

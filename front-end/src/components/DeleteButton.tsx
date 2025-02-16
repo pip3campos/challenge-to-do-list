@@ -1,11 +1,10 @@
 
 interface DeleteButtonProps {
-    id: string,
     openInputDelete: boolean,
     setOpenInputDelete: (open: boolean) => void
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ id, openInputDelete, setOpenInputDelete}) => {
+const DeleteButton: React.FC<DeleteButtonProps> = ({ openInputDelete, setOpenInputDelete}) => {
     return (
         <button
             onClick={() => setOpenInputDelete(!openInputDelete)}
