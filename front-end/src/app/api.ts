@@ -5,8 +5,7 @@ import { ITask } from "../types/tasks"
 import { IUser } from "../types/users"
 import { cookies } from 'next/headers'
 
-const baseUrl = 'http://localhost:8080'
-const cookieStore = cookies()
+const baseUrl = 'http://localhost:8080';
 
 export const signUp = async (userInfo: { email: string, password: string }): Promise<IUser> => {
     try {
@@ -45,8 +44,8 @@ export const signIn = async (userInfo: { email: string, password: string }): Pro
 }
 
 export const getAllTodos = async (): Promise<ITask[]> => {
-    const token = cookieStore.get('token')?.value;
-    const id = cookieStore.get('id')?.value;
+    const token = cookies().get('token')?.value;
+    const id = cookies().get('id')?.value;
     try {
         const res: AxiosResponse<ITask[]> = await axios.get<ITask[]>(`${baseUrl}/api/tasks/${id}`, {
             headers: {
@@ -62,8 +61,8 @@ export const getAllTodos = async (): Promise<ITask[]> => {
 }
 
 export const addTask = async (TaskData: { title: string }): Promise<ITask> => {
-    const token = cookieStore.get('token')?.value;
-    const id = cookieStore.get('id')?.value;
+    const token = cookies().get('token')?.value;
+    const id = cookies().get('id')?.value;
     const taskInfo = {...TaskData, author_id: id};
     try {
         const res: AxiosResponse<ITask> = await axios.post<ITask>(`${baseUrl}/api/tasks`, taskInfo, {
@@ -79,7 +78,7 @@ export const addTask = async (TaskData: { title: string }): Promise<ITask> => {
 }
 
 export const editTask = async (TaskData: { id: string, title: string }): Promise<ITask> => {
-    const token = cookieStore.get('token')?.value;
+    const token = cookies().get('token')?.value;
     try {
         const res: AxiosResponse<ITask> = await axios.patch<ITask>(`${baseUrl}/api/tasks/${TaskData.id}`, TaskData, {
             headers: {
@@ -94,7 +93,7 @@ export const editTask = async (TaskData: { id: string, title: string }): Promise
 }
 
 export const deleteTask = async (id: string): Promise<void> => {
-    const token = cookieStore.get('token')?.value;
+    const token = cookies().get('token')?.value;
     try {
         await axios.delete<void>(`${baseUrl}/api/tasks/${id}`, {
             headers: {
