@@ -9,17 +9,7 @@
       }
     }
   ],
-  "rewrites": [
-    { "source": "/api-docs", "destination": "/api-docs/index.html" }
-  ],
   "routes": [
-    {
-      "src": "/api-docs/(.*)",
-      "dest": "/api-docs/$1",
-      "headers": {
-        "Cache-Control": "max-age=31536000"
-      }
-    },
     {
       "src": "/swagger.json",
       "dest": "src/www.ts"
@@ -34,6 +24,5 @@
     }
   ],
   "buildCommand": "npm install && npm run build",
-  "devCommand": "npm run dev",
-  "public": true
+  "devCommand": "npm run dev"
 }
