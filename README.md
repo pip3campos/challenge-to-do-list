@@ -70,16 +70,16 @@ You need to configure the following environment variables for both the backend a
 
 **Backend (`SERVER/.env`):**
 
-NODE_ENV=development # "development" or "production" - Affects logging and other environment-specific behaviors. Defaults to "development" if not set.
-APP_ORIGIN=http://localhost:3000 # The origin of your frontend application. Used for CORS configuration. In production, this should be your frontend's Vercel URL.
-MONGO_URI=[YOUR_MONGODB_CONNECTION_STRING] # The URI for your MongoDB database. Example: mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
-PORT=8080 # The port the server will listen on. Defaults to 8080 if not set.
-JWT_SECRET=[YOUR_JWT_SECRET_KEY] # A secret key for signing JWT tokens. Must be a strong, random string (at least 32 characters). Keep this VERY secure! Example: openssl rand -base64 32
-JWT_REFRESH_SECRET=[YOUR_JWT_REFRESH_SECRET] # A secret key for REFRESHING JWT tokens. Must be a strong, random string (at least 32 characters). Keep this VERY secure! This can be the same as JWT_SECRET, but using a different key is more secure. Example: openssl rand -base64 32
+* NODE_ENV=development # "development" or "production" - Affects logging and other environment-specific behaviors. Defaults to "development" if not set.
+* APP_ORIGIN=http://localhost:3000 # The origin of your frontend application. Used for CORS configuration. In production, this should be your frontend's Vercel URL.
+* MONGO_URI=[YOUR_MONGODB_CONNECTION_STRING] # The URI for your MongoDB database. Example: mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
+* PORT=8080 # The port the server will listen on. Defaults to 8080 if not set.
+* JWT_SECRET=[YOUR_JWT_SECRET_KEY] # A secret key for signing JWT tokens. Must be a strong, random string (at least 32 characters). Keep this VERY secure! Example: openssl rand -base64 32
+* JWT_REFRESH_SECRET=[YOUR_JWT_REFRESH_SECRET] # A secret key for REFRESHING JWT tokens. Must be a strong, random string (at least 32 characters). Keep this VERY secure! This can be the same as JWT_SECRET, but using a different key is more secure. Example: openssl rand -base64 32
 
 **Frontend (`front-end/.env`):**
 
-URL_BASE=[YOUR_BACKEND_DEPLOYMENT_URL]/api # URL of the backend API. Include /api at the end. This should be your backend's Vercel URL in production.
+* URL_BASE=[YOUR_BACKEND_DEPLOYMENT_URL]/api # URL of the backend API. Include /api at the end. This should be your backend's Vercel URL in production.
 
 *   Replace `[YOUR_MONGODB_CONNECTION_STRING]` with your MongoDB connection string.
 *   Replace `[YOUR_JWT_SECRET_KEY]` with a strong, randomly generated secret key.  This is critical for security.
