@@ -35,5 +35,5 @@
   ],
   "buildCommand": "npm install && npm run build",
   "devCommand": "npm run dev",
-  "public": "public"
+  "public": true
 }
