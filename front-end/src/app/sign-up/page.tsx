@@ -2,6 +2,7 @@
 
 import { signUp } from "../api"
 import { FormEventHandler, useState } from "react"
+import Link from 'next/link';
 
 export default function SignUp() {
   const [emailValue, setEmailValue] = useState<string>("");
@@ -70,6 +71,12 @@ export default function SignUp() {
                 </button>
               </div>
             </form>
+            <p className="mt-4 text-center text-sm text-gray-600">
+              Already have an account?{' '}
+              <Link href="/sign-in" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                Sign in
+              </Link>
+            </p>
           </div>
         </div>
   )

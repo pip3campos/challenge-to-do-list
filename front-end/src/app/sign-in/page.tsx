@@ -3,6 +3,7 @@
 import { signIn } from "../api";
 import { FormEventHandler, useState } from "react";
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function SignIn() {
   const [emailValue, setEmailValue] = useState<string>("");
@@ -77,6 +78,12 @@ export default function SignIn() {
                 </button>
               </div>
             </form>
+            <p className="mt-4 text-center text-sm text-gray-600">
+              Create an account?{' '}
+              <Link href="/sign-up" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                Sign up
+              </Link>
+            </p>
           </div>
         </div>
   )
