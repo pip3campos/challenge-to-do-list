@@ -81,10 +81,6 @@ You need to configure the following environment variables for both the backend a
 
 * URL_BASE=[YOUR_BACKEND_DEPLOYMENT_URL]/api # URL of the backend API. Include /api at the end. This should be your backend's Vercel URL in production.
 
-*   Replace `[YOUR_MONGODB_CONNECTION_STRING]` with your MongoDB connection string.
-*   Replace `[YOUR_JWT_SECRET_KEY]` with a strong, randomly generated secret key.  This is critical for security.
-*   Replace `[YOUR_BACKEND_DEPLOYMENT_URL]` with the URL of your deployed backend (e.g., your Vercel deployment URL for the backend).
-
 ### 3. Running the Project Locally
 
 #### Backend
