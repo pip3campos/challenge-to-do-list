@@ -18,8 +18,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use('/api', indexRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.get('/swagger.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+  });
 app.use(Not_Found)
 app.use(ErrorHandler)
 
