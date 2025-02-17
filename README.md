@@ -25,7 +25,6 @@ This project implements a full-stack To-Do List application with advanced featur
     *   MongoDB
 *   **Deployment:**
     *   Vercel
-    *   GitHub Actions (CI/CD)
 
 ## Features
 
