@@ -24,7 +24,7 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

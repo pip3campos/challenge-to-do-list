@@ -12,6 +12,7 @@ import ErrorHandler from './middlewares/error_handler';
 import Not_Found from './middlewares/not_found';
 
 const app = express();
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
@@ -23,7 +24,7 @@ app.get('/swagger.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
   });
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { customCssUrl: CSS_URL }))
 app.use(Not_Found)
 app.use(ErrorHandler)
 
