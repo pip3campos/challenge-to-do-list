@@ -15,7 +15,7 @@
       "dest": "src/www.ts"
     },
     {
-      "src": "/api/*",
+      "src": "/api/(.*)",
       "dest": "src/www.ts"
     },
     {
