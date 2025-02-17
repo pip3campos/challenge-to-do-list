@@ -1,1 +1,24 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/src/routes" }] }
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/www.ts",
+        "use": "@vercel/node",
+        "config": {
+          "transpileOnly": true
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "src/www.ts"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "src/www.ts"
+      }
+    ],
+    "buildCommand": "npm install && npm run build",
+    "devCommand": "npm run dev"
+}
